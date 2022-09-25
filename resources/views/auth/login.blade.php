@@ -44,6 +44,9 @@
                         {{ $errors->first('password') }}
                     </div>
                 </div>
+                <div class="mt-3 text-muted text-center mb-3">
+                    Belum Punya Akun? <a href="{{ route('register') }}">Daftar sekarang!</a>
+                  </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
                         Login

@@ -1,3 +1,4 @@
+@if (Auth::user()->role == 1)
 <li class="side-menus {{ Request::is('home*') ? 'active' : '' }}">
     <a class="nav-link" href="/">
         <i class="fas fa-home    "></i><span>Dashboard</span>
@@ -17,3 +18,14 @@
     <a class="nav-link" href="{{ route('pemesanans.index') }}"><i class="fas fa-calendar-check"></i><span>Pemesanan</span></a>
 </li>
 
+
+@else
+<li class="side-menus {{ Request::is('home*') ? 'active' : '' }}">
+    <a class="nav-link" href="/">
+        <i class="fas fa-home    "></i><span>Dashboard</span>
+    </a>
+</li>
+<li class="side-menus {{ Request::is('pemesanans*') ? 'active' : '' }}">
+    <a class="nav-link" href="{{ route('pemesanans.index') }}"><i class="fas fa-calendar-check"></i><span>Pemesanan</span></a>
+</li>
+@endif

@@ -35,9 +35,12 @@ class Pemesanan extends Model
 
 
     public $fillable = [
-        'id_admin',
+        'id_pelanggan',
         'id_team',
         'waktu_pemesanan',
+        'id_genre',
+        'nomor_hp',
+        'metode_pembayaran',
         'lokasi'
     ];
 
@@ -75,7 +78,14 @@ class Pemesanan extends Model
     {
         return $this->belongsTo(\App\Models\User::class, 'id_admin');
     }
-
+    public function Genre()
+    {
+        return $this->belongsTo(\App\Models\Genre::class, 'id_genre');
+    }
+    public function Pelanggan()
+    {
+        return $this->belongsTo(\App\Models\User::class, 'id_pelanggan');
+    }
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **/

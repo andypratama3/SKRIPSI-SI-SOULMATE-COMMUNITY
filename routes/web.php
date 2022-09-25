@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HomeUserController;
+use App\Http\Controllers\PemesananController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +23,10 @@ Route::group(['middleware'=>['auth'] ],function () {
     Route::resource('genres', App\Http\Controllers\GenreController::class);
     Route::resource('teams', App\Http\Controllers\TeamController::class);
     Route::resource('pemesanans', App\Http\Controllers\PemesananController::class);
+    Route::get('/pemesanans/terima/{id}', [PemesananController::class, 'terima'])->name('pemesanans.terima');
+    Route::get('/pemesanans/tolak/{id}', [PemesananController::class, 'tolak'])->name('pemesanans.tolak');
+    Route::POST('/pemesanans/set-tim/{id}', [PemesananController::class, 'setTim'])->name('pemesanans.setTim');
+
 });
 Auth::routes();
 

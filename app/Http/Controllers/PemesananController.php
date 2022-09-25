@@ -6,9 +6,11 @@ use App\Http\Requests\CreatePemesananRequest;
 use App\Http\Requests\UpdatePemesananRequest;
 use App\Repositories\PemesananRepository;
 use App\Http\Controllers\AppBaseController;
+use App\Models\Genre;
 use App\Models\Team;
 use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Support\Facades\Auth;
 use Response;
 
 class PemesananController extends AppBaseController
@@ -44,7 +46,8 @@ class PemesananController extends AppBaseController
     public function create()
     {
         $team = Team::pluck('nama_tim','id');
-        return view('pemesanans.create',compact('team'));
+        $genre = Genre::pluck('nama_genre','id');
+        return view('pemesanans.create',compact('team','genre'));
     }
 
     /**
@@ -57,8 +60,9 @@ class PemesananController extends AppBaseController
     public function store(CreatePemesananRequest $request)
     {
         $input = $request->all();
-
         $pemesanan = $this->pemesananRepository->create($input);
+        $pemesanan->id_pelanggan = Auth::user()->id;
+        $pemesanan->save();
 
         Flash::success('Pemesanan saved successfully.');
 
@@ -81,8 +85,8 @@ class PemesananController extends AppBaseController
 
             return redirect(route('pemesanans.index'));
         }
-
-        return view('pemesanans.show')->with('pemesanan', $pemesanan);
+        $team = Team::pluck('nama_tim','id');
+        return view('pemesanans.show',compact('team'))->with('pemesanan', $pemesanan);
     }
 
     /**
@@ -102,7 +106,8 @@ class PemesananController extends AppBaseController
             return redirect(route('pemesanans.index'));
         }
         $team = Team::pluck('nama_tim','id');
-        return view('pemesanans.edit',compact('team'))->with('pemesanan', $pemesanan);
+        $genre = Genre::pluck('nama_genre','id');
+        return view('pemesanans.edit',compact('team','genre'))->with('pemesanan', $pemesanan);
     }
 
     /**
@@ -148,10 +153,58 @@ class PemesananController extends AppBaseController
 
             return redirect(route('pemesanans.index'));
         }
+        $pemesanan->status = 4;
+        $pemesanan->save();
 
-        $this->pemesananRepository->delete($id);
+        Flash::success('Pemesanan ditolak.');
 
-        Flash::success('Pemesanan deleted successfully.');
+        return redirect(route('pemesanans.index'));
+    }
+    public function terima($id)
+    {
+        $pemesanan = $this->pemesananRepository->find($id);
+
+        if (empty($pemesanan)) {
+            Flash::error('Pemesanan not found');
+
+            return redirect(route('pemesanans.index'));
+        }
+        $pemesanan->status = 2;
+        $pemesanan->save();
+
+        Flash::success('Pemesanan diterima.');
+
+        return redirect(route('pemesanans.index'));
+    }
+    public function tolak($id)
+    {
+        $pemesanan = $this->pemesananRepository->find($id);
+
+        if (empty($pemesanan)) {
+            Flash::error('Pemesanan not found');
+
+            return redirect(route('pemesanans.index'));
+        }
+        $pemesanan->status = 4;
+        $pemesanan->save();
+
+        Flash::success('Pemesanan ditolak.');
+
+        return redirect(route('pemesanans.index'));
+    }
+    function setTim(Request $request,$id){
+        $pemesanan = $this->pemesananRepository->find($id);
+
+        if (empty($pemesanan)) {
+            Flash::error('Pemesanan not found');
+
+            return redirect(route('pemesanans.index'));
+        }
+        $pemesanan->status = 3;
+        $pemesanan->id_team = $request->id_team;
+        $pemesanan->save();
+
+        Flash::success('Pemesanan ditolak.');
 
         return redirect(route('pemesanans.index'));
     }
