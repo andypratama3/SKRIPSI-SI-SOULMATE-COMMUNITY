@@ -9,11 +9,7 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    function index(){
-        $anggota = Anggota::all();
-        $team = Team::all();
-        $pemesanan = Pemesanan::all();
-
-        return view('dashboard',compact('anggota','team','pemesanan'));
+    function homepage(){
+        return view('home');
     }
 }

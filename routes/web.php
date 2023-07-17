@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\HomeUserController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PemesananController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -16,9 +16,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', [HomeController::class, 'homepage'])->name('homepage');
 
 Route::group(['middleware'=>['auth'] ],function () {
-    Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('home');
     Route::resource('anggotas', App\Http\Controllers\AnggotaController::class);
     Route::resource('genres', App\Http\Controllers\GenreController::class);
     Route::resource('teams', App\Http\Controllers\TeamController::class);

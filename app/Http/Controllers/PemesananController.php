@@ -7,6 +7,7 @@ use App\Http\Requests\UpdatePemesananRequest;
 use App\Repositories\PemesananRepository;
 use App\Http\Controllers\AppBaseController;
 use App\Models\Genre;
+use App\Models\Pemesanan;
 use App\Models\Team;
 use Illuminate\Http\Request;
 use Flash;
@@ -32,7 +33,12 @@ class PemesananController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $pemesanans = $this->pemesananRepository->all();
+       if(Auth::user()->role == 1){
+            $pemesanans = $this->pemesananRepository->all();
+       }else{
+        $pemesanans = Pemesanan::where('id_pelanggan',Auth::user()->id)->get();
+
+       }
 
         return view('pemesanans.index')
             ->with('pemesanans', $pemesanans);
