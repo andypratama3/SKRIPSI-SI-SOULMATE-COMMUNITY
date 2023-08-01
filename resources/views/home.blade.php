@@ -48,7 +48,11 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto mr-2">
               <li class="nav-item active">
+                @auth
+                <a class="nav-link" href="{{ route('home') }}">Dashboard <span class="sr-only">(current)</span></a>
+                @else
                 <a class="nav-link" href="{{ route('login') }}">Login <span class="sr-only">(current)</span></a>
+                @endauth
               </li>
             </ul>
           </div>
