@@ -9,8 +9,8 @@
         <div class="section-header-breadcrumb">
             @if (Auth::user()->role == 1)
                 @if ($pemesanan->status == 1)
-                <a href="{{ route('pemesanans.terima',[$pemesanan->id]) }}" class="btn btn-success form-btn float-right">Terima</a>
-                <a href="{{ route('pemesanans.tolak',[$pemesanan->id]) }}" class="btn btn-danger form-btn float-right">Tolak</a>
+                    <a href="{{ route('pemesanans.terima',[$pemesanan->id]) }}" class="btn btn-success form-btn float-right">Terima</a>
+                    <a href="{{ route('pemesanans.tolak',[$pemesanan->id]) }}" class="btn btn-danger form-btn float-right">Tolak</a>
                 @elseif($pemesanan->status == 2)
                 <form action="{{ route('pemesanans.setTim',[$pemesanan->id]) }}" method="post" style="width: 300px;">
                     @csrf
@@ -47,13 +47,69 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            @endif
-            <div class="col-md-6">
                 <div class="card">
                     <h2 class="section-title">Informasi Pemesanan</h2>
                     <div class="card-body">
+                        @include('pemesanans.show_fields')
+                    </div>
+                </div>
+            </div>
+            @else
+                <div class="col-md-6">
+                    <div class="card">
+                        <h2 class="section-title">Informasi Pemesanan</h2>
+                        <div class="card-body">
                             @include('pemesanans.show_fields')
+                        </div>
+                    </div>
+                </div>
+            @endif
+         
+            <div class="col-md-6">
+                <div class="card">
+                    <h2 class="section-title">Informasi Pembayaran 
+                        @if ($pemesanan->status == 0)
+                            <span style="font-size:10px;padding:5px" class="badge badge-warning">Belum Dibayar</span>
+                        @else
+                            <span style="font-size:10px;padding:5px" class="badge badge-success">Sudah Dibayar</span>
+                        @endif
+                    </h2>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <div class="form-group">
+                                {!! Form::label('genre', 'Total Transfer') !!}
+                                <p><b>{{ "Rp. " .  number_format($pemesanan->Genre->biaya, 0, ",", ".") }}</b></p>
+                            </div>
+                            
+                            @if ($pemesanan->status == 0)
+                                @if (Auth::user()->role == 1)
+                                @else
+                                <div class="form-group">
+                                    {!! Form::label('genre', 'Mandiri') !!}
+                                    <p>Firti - 8162975639128 </p>
+                                </div>
+                                <form action="{{ route('pemesanans.uploadBukti',$pemesanan->id) }}" method="post" enctype="multipart/form-data">
+                                    @csrf
+                                    <div class="form-group">
+                                        {!! Form::label('genre', 'Bukti TF') !!}
+                                        <input type="file" name="bukti" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <button class="btn btn-primary" type="submit">Upload</button>
+                                    </div>
+                                </form>
+                                @endif
+                
+                               
+                            @else
+                                <div class="form-group">
+                                    {!! Form::label('genre', 'Bukti TF') !!}
+                                    <img src="{{ asset('bukti') }}/{{ $pemesanan->bukti }}" class="img-fluid" alt="Responsive image">
+                                </div>
+                            @endif
+    
+                            
+                        </div>
                     </div>
                 </div>
             </div>

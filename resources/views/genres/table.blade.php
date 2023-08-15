@@ -4,6 +4,7 @@
             <tr>
                 <th>No</th>
                 <th>Nama Genre</th>
+                <th>Biaya</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -12,6 +13,7 @@
             <tr>
                 <td>{{ $loop->iteration }}</td>
                        <td>{{ $genre->nama_genre }}</td>
+                <td>{{ "Rp. " .  number_format($genre->biaya, 0, ",", ".") }}</td>
                        <td class=" text-center">
                            {!! Form::open(['route' => ['genres.destroy', $genre->id], 'method' => 'delete']) !!}
                            <div class='btn-group'>

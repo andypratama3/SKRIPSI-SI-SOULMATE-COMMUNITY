@@ -52,10 +52,9 @@ class PemesananController extends AppBaseController
     public function create()
     {
         $team = Team::pluck('nama_tim','id');
-        $genre = Genre::pluck('nama_genre','id');
+        $genre = Genre::get();
         return view('pemesanans.create',compact('team','genre'));
     }
-
     /**
      * Store a newly created Pemesanan in storage.
      *
@@ -213,5 +212,22 @@ class PemesananController extends AppBaseController
         Flash::success('Pemesanan ditolak.');
 
         return redirect(route('pemesanans.index'));
+    }
+    function uploadBukti(Request $request, $id){
+        $this->validate($request, [
+            'bukti'          => 'required'
+        ]);
+        $file           = $request->file('bukti');
+        $nama_file      = $file->getClientOriginalName();
+        $file->move('bukti',$file->getClientOriginalName());
+
+        $pemesanan = Pemesanan::find($id);
+        $pemesanan->bukti = $nama_file;
+        $pemesanan->status = 1;
+        $pemesanan->tgl_bayar = NOW();
+        $pemesanan->save();
+        return redirect(route('pemesanans.show',$id));
+
+
     }
 }

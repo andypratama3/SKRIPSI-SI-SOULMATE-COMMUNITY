@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\GenreController;
 use App\Http\Controllers\PemesananController;
+use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -27,7 +29,8 @@ Route::group(['middleware'=>['auth'] ],function () {
     Route::get('/pemesanans/terima/{id}', [PemesananController::class, 'terima'])->name('pemesanans.terima');
     Route::get('/pemesanans/tolak/{id}', [PemesananController::class, 'tolak'])->name('pemesanans.tolak');
     Route::POST('/pemesanans/set-tim/{id}', [PemesananController::class, 'setTim'])->name('pemesanans.setTim');
-
+    Route::POST('/pemesanans/upload-bukti/{id}', [PemesananController::class, 'uploadBukti'])->name('pemesanans.uploadBukti');
+    Route::get('/getInfoGenre/{id}', [GenreController::class, 'getInfoTeam'])->name('getInfoTeam');
 });
 Auth::routes();
 

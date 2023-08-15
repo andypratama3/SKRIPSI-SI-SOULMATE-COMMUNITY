@@ -26,6 +26,8 @@
                         <span class="badge badge-primary">Pencarian Tim Dance</span>
                     @elseif ($pemesanan->status == 3)
                         <span class="badge badge-success">Selesai</span>
+                    @elseif ($pemesanan->status == 0)
+                        <span class="badge badge-warning">Belum Dibayar</span>
                     @else
                         <span class="badge badge-danger">Ditolak</span>
                     @endif
@@ -34,12 +36,14 @@
                         {!! Form::open(['route' => ['pemesanans.destroy', $pemesanan->id], 'method' => 'delete']) !!}
                         <div class='btn-group'>
                             @if ($pemesanan->status == 1)
-                                <a href="{!! route('pemesanans.show', [$pemesanan->id]) !!}" class='btn btn-info action-btn '><i class="fas fa-check"></i> </a>
+                                <a href="{!! route('pemesanans.show', [$pemesanan->id]) !!}" class='btn btn-info action-btn '><i class="fas fa-eye"></i> </a>
+                                {{-- <a href="{!! route('pemesanans.show', [$pemesanan->id]) !!}" class='btn btn-info action-btn '><i class="fas fa-check"></i> </a> --}}
                                 {!! Form::button('<i class="fas fa-times"></i>', ['type' => 'submit', 'class' => 'btn btn-danger action-btn delete-btn', 'onclick' => 'return confirm("Batalkan Pemesanan ini?")']) !!}
+                                
                             @elseif($pemesanan->status == 2 )
                                 <a href="{!! route('pemesanans.show', [$pemesanan->id]) !!}" class='btn btn-info action-btn '><i class="fas fa-check"></i> </a>
                             @else
-                            <a href="{!! route('pemesanans.show', [$pemesanan->id]) !!}" class='btn btn-info action-btn '><i class="fas fa-eye"></i> </a>
+                                <a href="{!! route('pemesanans.show', [$pemesanan->id]) !!}" class='btn btn-info action-btn '><i class="fas fa-eye"></i> </a>
                             @endif
                            
                         </div>

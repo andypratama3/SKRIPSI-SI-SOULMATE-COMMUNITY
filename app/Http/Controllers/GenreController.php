@@ -153,4 +153,13 @@ class GenreController extends AppBaseController
 
         return redirect(route('genres.index'));
     }
+    function getInfoTeam($idTeam){
+        $genre = $this->genreRepository->find($id);
+
+        if ($genre->biaya == null) {
+            return "Belum Diatur Biaya Pemesananya!";
+        }else{
+            return "Rp. " .  number_format($genre->biaya, 0, ",", ".");
+        }
+    }
 }

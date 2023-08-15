@@ -3,6 +3,10 @@
     {!! Form::label('nama_genre', 'Nama Genre:') !!}
     {!! Form::text('nama_genre', null, ['class' => 'form-control','maxlength' => 50,'maxlength' => 50]) !!}
 </div>
+<div class="form-group col-sm-6">
+    {!! Form::label('biaya', 'Biaya Pemesanan:') !!}
+    {!! Form::number('biaya', null, ['class' => 'form-control','maxlength' => 50,'maxlength' => 50]) !!}
+</div>
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">

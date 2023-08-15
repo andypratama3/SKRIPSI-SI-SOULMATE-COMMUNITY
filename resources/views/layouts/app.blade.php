@@ -77,3 +77,4 @@
     }(jQuery));
 </script>
 </html>
+@yield('js')

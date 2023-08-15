@@ -3,8 +3,6 @@
     {!! Form::label('id_genre', 'Genre:') !!}
     {!! Form::select('id_genre',$genre, null, ['class' => 'form-control']) !!}
 </div>
-
-<!-- Nama Tim Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('nama_tim', 'Nama Tim:') !!}
     {!! Form::text('nama_tim', null, ['class' => 'form-control','maxlength' => 50,'maxlength' => 50]) !!}
@@ -20,7 +18,6 @@
         @endforeach
     </div>
 </div>
-
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">

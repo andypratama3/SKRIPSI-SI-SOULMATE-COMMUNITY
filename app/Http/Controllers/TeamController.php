@@ -59,7 +59,11 @@ class TeamController extends AppBaseController
      */
     public function store(CreateTeamRequest $request)
     {
-    
+        $request->validate([
+            'anggotaTim' => ['required'],
+            'biaya' => ['required'],
+            'nama_tim' => ['required'],
+        ]);
         $input = $request->all();
 
         $team = $this->teamRepository->create($input);
@@ -126,14 +130,16 @@ class TeamController extends AppBaseController
      */
     public function update($id, UpdateTeamRequest $request)
     {
+        $request->validate([
+            'anggotaTim' => ['required'],
+            'biaya' => ['required'],
+            'nama_tim' => ['required'],
+        ]);
         $team = $this->teamRepository->find($id);
-
         if (empty($team)) {
             Flash::error('Team not found');
-
             return redirect(route('teams.index'));
         }
-
         $team = $this->teamRepository->update($request->all(), $id);
         foreach ($team->teamMembers as $value) {
             $value->delete();
@@ -174,4 +180,5 @@ class TeamController extends AppBaseController
 
         return redirect(route('teams.index'));
     }
+   
 }

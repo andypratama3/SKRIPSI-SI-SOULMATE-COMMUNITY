@@ -53,7 +53,9 @@
                                                 <span class="badge badge-primary">Pencarian Tim Dance</span>
                                             @elseif ($pemesanan->status == 3)
                                                 <span class="badge badge-success">Selesai</span>
-                                                @else
+                                            @elseif ($pemesanan->status == 0)
+                                                <span class="badge badge-warning">Belum Dibayar</span>
+                                            @else
                                                 <span class="badge badge-danger">Ditolak</span>
                                             @endif
                                         </td>

@@ -31,6 +31,7 @@ class Genre extends Model
 
 
     public $fillable = [
+        'biaya',
         'nama_genre'
     ];
 
@@ -40,6 +41,7 @@ class Genre extends Model
      * @var array
      */
     protected $casts = [
+        'biaya' => 'integer',
         'id' => 'integer',
         'nama_genre' => 'string'
     ];
@@ -52,6 +54,7 @@ class Genre extends Model
     public static $rules = [
         'nama_genre' => 'nullable|string|max:50',
         'created_at' => 'nullable',
+        'biaya' => 'nullable',
         'updated_at' => 'nullable',
         'deleted_at' => 'nullable'
     ];
