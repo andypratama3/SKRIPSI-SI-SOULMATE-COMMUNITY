@@ -67,6 +67,7 @@ class PemesananController extends AppBaseController
         $input = $request->all();
         $pemesanan = $this->pemesananRepository->create($input);
         $pemesanan->id_pelanggan = Auth::user()->id;
+        $pemesanan->status = 0;
         $pemesanan->save();
 
         Flash::success('Pemesanan saved successfully.');

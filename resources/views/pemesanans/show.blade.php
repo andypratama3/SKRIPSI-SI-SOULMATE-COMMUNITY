@@ -80,7 +80,6 @@
                                 {!! Form::label('genre', 'Total Transfer') !!}
                                 <p><b>{{ "Rp. " .  number_format($pemesanan->Genre->biaya, 0, ",", ".") }}</b></p>
                             </div>
-                            
                             @if ($pemesanan->status == 0)
                                 @if (Auth::user()->role == 1)
                                 @else
