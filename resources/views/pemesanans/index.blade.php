@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    Pemesanans 
+    Pemesanans
 @endsection
 @section('content')
     @if (Auth::user()->role == 1)
@@ -61,7 +61,7 @@
                                         </td>
                                         <td class=" text-center">
                                             <div class='btn-group'>
-                                                <a href="{!! route('pemesanans.show', [$pemesanan->id]) !!}" class='btn btn-info action-btn '><i class="fa fa-eye"></i></a>
+                                                <a href="{{ route('dashboard.pemesanan.show', $pemesanan->id) }}" class='btn btn-info action-btn '><i class="fa fa-eye"></i></a>
                                             </div>
                                         </td>
                                     </tr>
@@ -80,6 +80,6 @@
         </section>
     @endif
 
-    
+
 @endsection
 

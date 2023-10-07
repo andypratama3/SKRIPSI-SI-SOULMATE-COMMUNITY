@@ -4,7 +4,7 @@
 @endsection
 @section('content')
     <div class="card card-primary">
-        <div class="card-header"><h4>Admin Login</h4></div>
+        <div class="card-header"><h4>Login Page</h4></div>
 
         <div class="card-body">
             <form method="POST" action="{{ route('login') }}">
@@ -33,7 +33,7 @@
                 <div class="form-group">
                     <div class="d-block">
                         <label for="password" class="control-label">Password</label>
-                    
+
                     </div>
                     <input aria-describedby="passwordHelpBlock" id="password" type="password"
                            value="{{ (Cookie::get('password') !== null) ? Cookie::get('password') : null }}"

@@ -36,16 +36,16 @@
                         {!! Form::open(['route' => ['pemesanans.destroy', $pemesanan->id], 'method' => 'delete']) !!}
                         <div class='btn-group'>
                             @if ($pemesanan->status == 1)
-                                <a href="{!! route('pemesanans.show', [$pemesanan->id]) !!}" class='btn btn-info action-btn '><i class="fas fa-eye"></i> </a>
+                                <a href="{!! route('dashboard.pemesanan.show', [$pemesanan->id]) !!}" class='btn btn-info action-btn '><i class="fas fa-eye"></i> </a>
                                 {{-- <a href="{!! route('pemesanans.show', [$pemesanan->id]) !!}" class='btn btn-info action-btn '><i class="fas fa-check"></i> </a> --}}
                                 {!! Form::button('<i class="fas fa-times"></i>', ['type' => 'submit', 'class' => 'btn btn-danger action-btn delete-btn', 'onclick' => 'return confirm("Batalkan Pemesanan ini?")']) !!}
-                                
+
                             @elseif($pemesanan->status == 2 )
-                                <a href="{!! route('pemesanans.show', [$pemesanan->id]) !!}" class='btn btn-info action-btn '><i class="fas fa-check"></i> </a>
+                                <a href="{!! route('dashboard.pemesanan.show', [$pemesanan->id]) !!}" class='btn btn-info action-btn '><i class="fas fa-check"></i> </a>
                             @else
-                                <a href="{!! route('pemesanans.show', [$pemesanan->id]) !!}" class='btn btn-info action-btn '><i class="fas fa-eye"></i> </a>
+                                <a href="{!! route('dashboard.pemesanan.show', [$pemesanan->id]) !!}" class='btn btn-info action-btn '><i class="fas fa-eye"></i> </a>
                             @endif
-                           
+
                         </div>
                         {!! Form::close() !!}
                     </td>

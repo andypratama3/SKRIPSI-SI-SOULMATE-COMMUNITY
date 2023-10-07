@@ -49,7 +49,19 @@
             <ul class="navbar-nav ml-auto mr-2">
               <li class="nav-item active">
                 @auth
+                @if(Auth::User()->role == 1 && 2 )
                 <a class="nav-link" href="{{ route('home') }}">Dashboard <span class="sr-only">(current)</span></a>
+                @else
+                <a href="{{ url('logout') }}" class="dropdown-item has-icon text-danger"
+                onclick="event.preventDefault(); localStorage.clear();  document.getElementById('logout-form').submit();">
+                 <i class="fas fa-sign-out-alt"></i> Logout
+             </a>
+             <form id="logout-form" action="{{ url('/logout') }}" method="POST" class="d-none">
+                 {{ csrf_field() }}
+             </form>
+                @endif
+                <a class="nav-link" href="{{ route('pemesanans.create') }}">Pesan <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="{{ route('pemesanans.index') }}">Pesanan <span class="sr-only">(current)</span></a>
                 @else
                 <a class="nav-link" href="{{ route('login') }}">Login <span class="sr-only">(current)</span></a>
                 @endauth
@@ -190,7 +202,7 @@
 
   <section class="container-fluid footer_section">
     <p>
-      Copyright &copy; 2023 
+      Copyright &copy; 2023
     </p>
   </section>
   <script type="text/javascript" src="{{ asset('AssetUser/js/jquery-3.4.1.min.js') }}"></script>

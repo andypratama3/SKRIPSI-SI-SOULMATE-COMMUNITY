@@ -16,32 +16,20 @@ use Response;
 
 class PemesananController extends AppBaseController
 {
-    /** @var PemesananRepository $pemesananRepository*/
-    private $pemesananRepository;
 
-    public function __construct(PemesananRepository $pemesananRepo)
-    {
-        $this->pemesananRepository = $pemesananRepo;
-    }
+     /** @var PemesananRepository $pemesananRepository*/
+     private $pemesananRepository;
 
-    /**
-     * Display a listing of the Pemesanan.
-     *
-     * @param Request $request
-     *
-     * @return Response
-     */
+     public function __construct(PemesananRepository $pemesananRepo)
+     {
+         $this->pemesananRepository = $pemesananRepo;
+     }
+
     public function index(Request $request)
     {
-       if(Auth::user()->role == 1){
-            $pemesanans = $this->pemesananRepository->all();
-       }else{
+        $genre = Genre::all();
         $pemesanans = Pemesanan::where('id_pelanggan',Auth::user()->id)->get();
-
-       }
-
-        return view('pemesanans.index')
-            ->with('pemesanans', $pemesanans);
+        return view('user.index', compact('pemesanans', 'genre'));
     }
 
     /**
@@ -53,7 +41,7 @@ class PemesananController extends AppBaseController
     {
         $team = Team::pluck('nama_tim','id');
         $genre = Genre::get();
-        return view('pemesanans.create',compact('team','genre'));
+        return view('user.create',compact('team','genre'));
     }
     /**
      * Store a newly created Pemesanan in storage.
@@ -92,7 +80,7 @@ class PemesananController extends AppBaseController
             return redirect(route('pemesanans.index'));
         }
         $team = Team::pluck('nama_tim','id');
-        return view('pemesanans.show',compact('team'))->with('pemesanan', $pemesanan);
+        return view('user.show',compact('team'))->with('pemesanan', $pemesanan);
     }
 
     /**
@@ -157,7 +145,7 @@ class PemesananController extends AppBaseController
         if (empty($pemesanan)) {
             Flash::error('Pemesanan not found');
 
-            return redirect(route('pemesanans.index'));
+            return redirect(route('dashboard.pemesanans.index'));
         }
         $pemesanan->status = 4;
         $pemesanan->save();
@@ -173,14 +161,14 @@ class PemesananController extends AppBaseController
         if (empty($pemesanan)) {
             Flash::error('Pemesanan not found');
 
-            return redirect(route('pemesanans.index'));
+            return redirect(route('dashboard.pemesanan.index'));
         }
         $pemesanan->status = 2;
         $pemesanan->save();
 
         Flash::success('Pemesanan diterima.');
 
-        return redirect(route('pemesanans.index'));
+        return redirect(route('dashboard.pemesanan.index'));
     }
     public function tolak($id)
     {
@@ -204,7 +192,7 @@ class PemesananController extends AppBaseController
         if (empty($pemesanan)) {
             Flash::error('Pemesanan not found');
 
-            return redirect(route('pemesanans.index'));
+            return redirect(route('dashboard.pemesanan.index'));
         }
         $pemesanan->status = 3;
         $pemesanan->id_team = $request->id_team;
@@ -212,7 +200,7 @@ class PemesananController extends AppBaseController
 
         Flash::success('Pemesanan ditolak.');
 
-        return redirect(route('pemesanans.index'));
+        return redirect(route('dashboard.pemesanan.index'));
     }
     function uploadBukti(Request $request, $id){
         $this->validate($request, [
